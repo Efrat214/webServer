@@ -1,15 +1,8 @@
 import * as http from "http";
 import { env } from "process";
 import url from "url";
-import fspromises from "fs/promises";
 import { isPrime } from "./prime.js";
 import { generatePrime } from "./prime.js";
-
-async function readConfigFile() {
-  const data = await fspromises.readFile("./config.json", "utf8");
-  const config = JSON.parse(data);
-  return config.PORT;
-}
 
 function handleGetNPrimeNumbers(req, res) {
   const parsedURL = url.parse(req.url, true);
@@ -64,7 +57,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const PORT = env.SERVER_PORT || (await readConfigFile());
+const PORT = env.SERVER_PORT || 3000;
 
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
