@@ -8,13 +8,15 @@ const app = express();
 
 app.post("/api/numbers/prime/validate", (req, res) => {
   try {
-    const body = req.body;
+    const { body } = req;
+    console.log(body);
     const prime = true;
     for (const key in body) {
       if (Object.hasOwnProperty.call(body, key)) {
         const value = body[key];
         if (!isPrime(value)) {
           prime = false;
+          break;
         }
       }
     }
